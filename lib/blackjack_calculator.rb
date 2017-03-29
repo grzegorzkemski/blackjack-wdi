@@ -26,7 +26,7 @@ class BlackjackCalculator
   private
 
   def ace_count
-    @cards.count { |card| ace?(card) }
+    @cards.count &method(:ace?)
   end
 
   def base_sum
@@ -34,13 +34,17 @@ class BlackjackCalculator
   end
 
   def card_score(card)
-    if FACE_CARDS.include?(card)
+    if face?(card)
       10
     elsif ace?(card)
       1
     else
       card.to_i
     end
+  end
+
+  def face?(card)
+    FACE_CARDS.include?(card)
   end
 
   def ace?(card)
